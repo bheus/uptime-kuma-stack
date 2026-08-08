@@ -1,0 +1,27 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:2.4.0
+    container_name: uptime-kuma
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - uptime-kuma-data:/app/data
+      # read-only: used for Docker-host monitors in Kuma
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - default
+      - abraham
+
+networks:
+  abraham:
+    external: true
+    name: abraham_abraham-network
+
+volumes:
+  # Declared external and named explicitly so the volume is NOT prefixed with the
+  # compose project name. Without this, renaming the Portainer stack would create a
+  # fresh empty volume and silently lose every monitor and all history.
+  uptime-kuma-data:
+    external: true
+    name: uptime-kuma_uptime-kuma-data

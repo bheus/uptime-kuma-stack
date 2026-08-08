@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+    ignore:
+      # Kuma majors have carried breaking DB migrations; take them deliberately.
+      - dependency-name: "louislam/uptime-kuma"
+        update-types: ["version-update:semver-major"]
