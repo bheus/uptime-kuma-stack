@@ -12,11 +12,20 @@ services:
     networks:
       - default
       - abraham
+      - caddy
+    labels:
+      # http:// is explicit: a bare hostname makes Caddy attempt ACME, which
+      # cannot succeed for .lan and leaves the route dead.
+      - "caddy=http://uptime-kuma.svc.lan"
+      - "caddy.reverse_proxy={{upstreams 3001}}"
 
 networks:
   abraham:
     external: true
     name: abraham_abraham-network
+  caddy:
+    external: true
+    name: caddy
 
 volumes:
   # Declared external and named explicitly so the volume is NOT prefixed with the
