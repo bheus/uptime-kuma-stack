@@ -3,8 +3,7 @@ updates:
   - package-ecosystem: "docker-compose"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "sunday"
+      interval: "monthly"
     ignore:
       # Kuma majors have carried breaking DB migrations; take them deliberately.
       - dependency-name: "louislam/uptime-kuma"
